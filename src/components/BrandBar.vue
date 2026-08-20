@@ -1,9 +1,7 @@
 <template>
 	<div class="brand-bar is-flex is-align-items-flex-end has-text-white">
-		<figure class="image _is-136x26 mb-3">
-			<img alt="logo" srcset="../assets/img/logo/logo.svg 2x, ../assets/img/logo/logo.png 1x">
-		</figure>
-		<span v-if="!rssShow || rss.length === 0" class="intro-text ml-4">Made with ❤️ by IceWhale and YOU!</span>
+		<div class="agma-brand">AGMA OS</div>
+		<span v-if="!rssShow || rss.length === 0" class="intro-text ml-4">Made with ❤️ by AGMA</span>
 		<span v-else class="window ml-4">
 			<ul :style="{ '--time': 5 * line + 's', '--perc': perc, '--line': line }" class="scroll">
 				<li v-for="(item, key) in rss" :key="key" class="has-text-left" @click="$messageBus('connect_news')">
@@ -64,7 +62,7 @@ export default {
 			const newFeed = feed.items.map(item => {
 				return {
 					title: item.title,
-					link: DOMPurify.sanitize(item.link, { ALLOWED_URI_REGEXP: /^(?:(?:(?:f|ht)tps?|mailto|tel|callto|cid|xmpp):|[^a-z]|[a-z+.1-9]+(?:[^a-z+.1-9]|$))/i })
+					link: DOMPurify.sanitize(item.link, { ALLOWED_URI_REGEXP: /^(?:(?:(?:f|ht)tps?|mailto|tel|callto|cid|xmpp):|[^a-z]|[a-z+.1.9]+(?:[^a-z+.1.9]|$))/i })
 				}
 			})
 			this.rss = newFeed
@@ -84,10 +82,8 @@ export default {
 	position: fixed;
 	left: 2rem;
 	bottom: 0;
-	//z-index: 10;
 
 	span {
-		//font-size: 1.125rem;
 		margin-bottom: 7px;
 	}
 
@@ -103,6 +99,18 @@ export default {
 
 		vertical-align: text-bottom;
 	}
+}
+
+.agma-brand {
+	width: 8.5rem;
+	height: 1.625rem;
+	display: flex;
+	align-items: center;
+	font-size: 1.05rem;
+	font-weight: 600;
+	letter-spacing: 0.02em;
+	color: #fff;
+	white-space: nowrap;
 }
 
 @media screen and (max-width: 480px) {
@@ -125,19 +133,13 @@ export default {
 	}
 }
 
-._is-136x26 {
-	width: 8.5rem;
-	height: 1.625rem;
-}
-
-// -----------------scroll start-----------------
 @keyframes scroll {
 	0% {
 		transform: translate(0, 0);
 	}
 
 	100% {
-		transform: translate(0, -100%); // Jump upwards
+		transform: translate(0, -100%);
 	}
 }
 
@@ -166,13 +168,10 @@ export default {
 
 	li:hover {
 		text-decoration: underline;
-
 	}
 }
 
 .scroll:hover {
 	animation-play-state: paused;
 }
-
-// -----------------scroll end-----------------
 </style>
