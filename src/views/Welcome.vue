@@ -13,11 +13,11 @@
 
 			<div v-if="step == 1" class="has-text-centered">
 				<div v-animate-css="s1Ani" class=" is-flex is-justify-content-center">
-					<b-image :src="require('@/assets/img/logo/casa-dark.svg')" class="is-128x128 mb-4"></b-image>
+					<div class="agma-welcome-logo">AGMA OS</div>
 				</div>
 
 				<h2 v-animate-css="s2Ani" class="title is-2 mb-5 has-text-centered __attached_title">{{
-						$t('Welcome to CasaOS')
+						$t('Welcome to AGMA OS')
 					}}</h2>
 				<h2 v-animate-css="s3Ani" class="subtitle  has-text-centered __attached_sub_title">{{
 						$t(`Let's create your initial account`)
@@ -141,16 +141,11 @@ export default {
 	},
 
 	methods: {
-		/**
-		 * @description: register
-		 * @return {*}
-		 */
 		register() {
 			const initKey = this.$store.state.initKey;
 			this.$api.users.register(this.username, this.password, initKey).then(res => {
 				if (res.data.success == 200) {
 					this.login().then(() => {
-						// First login set default app order
 						this.$api.users.setCustomStorage("app_order", {data: ["App Store", "Files"]})
 					});
 					this.goToStep(3);
@@ -166,10 +161,6 @@ export default {
 			})
 		},
 
-		/**
-		 * @description: login
-		 * @return {*}
-		 */
 		async login() {
 			const userRes = await this.$api.users.login(this.username, this.password)
 			if (userRes.data.success == 200) {
@@ -212,6 +203,18 @@ export default {
 </script>
 
 <style lang="scss">
+.agma-welcome-logo {
+	width: 128px;
+	height: 128px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 1.35rem;
+	font-weight: 700;
+	letter-spacing: 0.03em;
+	color: hsl(211, 72%, 20%, 100%);
+}
+
 .animation {
 	width: 120px;
 	height: 120px;
@@ -300,10 +303,7 @@ export default {
 	}
 }
 
-
-// Temporary
 .__attached_title {
-	// former color.Not in existing architecture.
 	color: hsl(211, 72%, 20%, 100%);;
 }
 
